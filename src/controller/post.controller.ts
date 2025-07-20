@@ -2,20 +2,20 @@ import { eq } from 'drizzle-orm';
 import db from '../db/index'
 import { notes } from '../db/schema';
 import { Request, Response } from 'express';
-
-interface Post {
-    id?: number;
-    title: string;
-    content: string;
-    authorId: number;
-    createdAt?: Date;
-    updatedAt?: Date;
-}
+import {v4 as uuidv4} from 'uuid';
 
 
 const addPost=async (req:Request,res:Response)=>{
 try {
-    const postData= req.body;
+    const {title,content}= req.body;
+    let postData={
+        title,
+        content,
+        id:uuidv4(),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    }
+    // console.log(db)
     const result = await db.insert(notes).values(postData).returning();
     if (result.length === 0) {
         throw new Error('Post creation failed');
@@ -32,10 +32,12 @@ try {
 }
 }
 
-const getPosts =async (res:Response) =>{
+const getPosts =async (req:Request,res:Response) =>{
     try {
         const posts=await db.select().from(notes);
-        return res.status(200).json(posts);
+        return res
+        .status(200)
+        .json(posts);
     } catch (error) {
         console.error('Error fetching posts:', error);
         throw error;
@@ -60,8 +62,8 @@ const getPostById=async(req:Request,res:Response)=>{
 const updatePost=async(req:Request,res:Response)=>{
     try {
         const id=req.params.id;
-        const postData=req.body;
-        const result = await db.update(notes).set(postData).where(eq(notes.id, id)).returning();
+        const {title,content}=req.body;
+        const result = await db.update(notes).set({title,content,updatedAt:new Date().toISOString()}).where(eq(notes.id, id)).returning();
         if (result.length === 0) {
             throw new Error('Post update failed or post not found');
         }

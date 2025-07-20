@@ -14,7 +14,8 @@
     "drizzle-kit": "^0.31.4",
     "drizzle-orm": "^0.44.3",
     "express": "^5.1.0",
-    "pg": "^8.16.3"
+    "pg": "^8.16.3",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
