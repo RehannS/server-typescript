@@ -1,4 +1,4 @@
-const rules={
+module.exports = {
     extends: ['@commitlint/config-conventional'],
     rules: {
         'type-enum': [
@@ -19,5 +19,3 @@ const rules={
         'subject-case':[2,'always','sentence-case'], // Subject should be in sentence case
     }
 }
-
-export default rules
