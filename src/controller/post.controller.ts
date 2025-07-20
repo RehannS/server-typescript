@@ -4,7 +4,6 @@ import { notes } from '../db/schema';
 import { Request, Response } from 'express';
 import {v4 as uuidv4} from 'uuid';
 
-
 const addPost=async (req:Request,res:Response)=>{
 try {
     const {title,content}= req.body;

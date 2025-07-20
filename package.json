@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky",
-    "dev": "nodemon --exec ts-node src/index.ts"
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "swagger":"npx ts-node src/utils/swaggerAuto.ts"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +16,7 @@
     "drizzle-orm": "^0.44.3",
     "express": "^5.1.0",
     "pg": "^8.16.3",
+    "swagger-autogen": "^2.23.7",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "uuid": "^11.1.0"
